@@ -9,13 +9,13 @@ Esse repositório tem como objetivo exemplificar um teste de carga com k6
 
 Seguir a documentação https://k6.io/docs/get-started/installation/
 
-#Instalação do Grafana
+## Instalação do Grafana
 
 Seguir a documentação https://grafana.com/docs/grafana/v9.0/setup-grafana/installation/
 
 ## Instalação do HAR
 
-´$ npm install -g har-to-k6´
+$ npm install -g har-to-k6´
 
 ## Executando os testes gerando gráfico no grafana:
 
