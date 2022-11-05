@@ -2,17 +2,26 @@
 
 import { sleep, group } from 'k6'
 import http from 'k6/http'
+import { thresholds } from 'k6';
 
-export const options = {}
+export const options = {
+  vus: 100,
+  duration: '1m',
+  thresholds:{
+    http_req_duration: ['p(95) < 1000'],
+    checks: ['rate>0.9']
+  }
+}
 
 export default function main() {
   let response
 
+  
   group('page_7 - http://agilekronos.jelastic.saveincloud.net/users/sign_in', function () {
     response = http.get('http://agilekronos.jelastic.saveincloud.net/users/sign_in', {
       headers: {
         Accept:
-          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'Accept-Encoding': 'gzip, deflate',
         'Accept-Language': 'en-US,en;q=0.9',
         'Cache-Control': 'max-age=0',
@@ -1015,17 +1024,38 @@ export default function main() {
   })
 
   group('page_9 - http://agilekronos.jelastic.saveincloud.net/projects', function () {
-    response = http.post(
+  
+    function getStringCode(length) {
+      var result           = '';
+      var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      var charactersLength = characters.length;
+      for ( var i = 0; i < length; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+      return result;
+    }
+    var getString = getStringCode(6);
+    var d = new Date();
+    var curr_date = d.getDate();
+    var curr_month = d.getMonth() + 1; 
+    var curr_year = d.getFullYear();
+    var curr_hour = d.getHours();
+    var curr_minute = d.getMinutes();
+    var curr_second = d.getSeconds();
+    var curr_date_time = "" + curr_date + "" + curr_month + "" + curr_year + "" + curr_hour + "" + curr_hour + "" + curr_minute + "" + curr_second
+  
+  response = http.post(
       'http://agilekronos.jelastic.saveincloud.net/projects',
       {
+   
         utf8: '✓',
         authenticity_token:
         'oXNbjzGNniAT+x2rvkh1hK8Il5zqfuM2tohJ+YnQiVJJ+obtOtafx0y+1aoMdQHzyqlQrp4lQZBjxY3eLjvDRQ==',
-        'project[name]': 'k6',
-        'project[initial]': 'ktest',
+        'project[name]': curr_date_time,
+        'project[initial]': getString,
         'project[priority_id]': '1',
         'project[difficulty]': '1',
-        'project[start_date]': '04/11/2022',
+        'project[start_date]': '05/11/2022',
         'project[end_date]': '24/11/2022',
         'project[description]': '<p>Teste</p>',
       },
