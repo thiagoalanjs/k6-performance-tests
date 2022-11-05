@@ -15,7 +15,7 @@ Seguir a documentação https://grafana.com/docs/grafana/v9.0/setup-grafana/inst
 
 ## Instalação do HAR
 
-$ npm install -g har-to-k6´
+$ npm install -g har-to-k6
 
 ## Executando os testes gerando gráfico no grafana:
 
