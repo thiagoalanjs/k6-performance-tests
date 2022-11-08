@@ -1055,7 +1055,7 @@ export default function main() {
         'project[initial]': getString,
         'project[priority_id]': '1',
         'project[difficulty]': '1',
-        'project[start_date]': '05/11/2022',
+        'project[start_date]': '20/11/2022',
         'project[end_date]': '24/11/2022',
         'project[description]': '<p>Teste</p>',
       },
